@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sip & Sea - Estetik Seafood dan Minuman</title>
+    
+    <style>
+        /* Variabel dan Dasar */
+        html {
+            scroll-behavior: smooth;
+        }
+        :root {
+            --color-dark: #3a2e2d;
+            --color-light: #f5f5f5;
+            --color-accent: #6c8a77;
+            --color-sea: #1f506e;
+        }
+
+        body {
+            font-family: 'Georgia', serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--color-light);
+            color: var(--color-dark);
+            line-height: 1.6;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 0;
+        }
+
+        /* Hero Section */
+        .hero-section {
+            height: 80vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTrwsKNbHuhJ8kB1gV4ZukWQcfW5S9u9XLdcA&s');
+            background-size: cover;
+            background-position: center;
+            z-index: 1;
+        }
+        
+        .hero-background::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(30, 30, 30, 0.4);
+            backdrop-filter: blur(2px);
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            color: var(--color-light);
+        }
+
+        .hero-content h1 {
+            font-size: 4rem;
+            margin-bottom: 10px;
+            letter-spacing: 5px;
+        }
+        
+        .hero-content p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 12px 30px;
+            background-color: var(--color-accent);
+            color: var(--color-dark);
+            text-decoration: none;
+            border: 2px solid var(--color-accent);
+            transition: all 0.3s ease;
+            font-weight: bold;
+            cursor: pointer; 
+        }
+
+        .cta-button:hover {
+            background-color: transparent;
+            color: var(--color-light);
+            border-color: var(--color-light);
+        }
+
+        /* Umum */
+        section {
+            padding: 60px 0;
+            text-align: center;
+        }
+
+        h2 {
+            font-size: 2.5rem;
+            color: var(--color-sea);
+            margin-bottom: 15px;
+            border-bottom: 2px solid var(--color-accent);
+            display: inline-block;
+            padding-bottom: 5px;
+        }
+        
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .menu-item {
+            color: white;
+            padding: 25px;
+            border-radius: 5px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease;
+            border-left: 5px solid var(--color-accent);
+            position: relative; 
+            overflow: hidden; 
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .menu-item:hover {
+            transform: perspective(1000px) translateY(-5px) rotateX(1deg); 
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Konten Item Menu berada di atas Overlay */
+        .menu-item > * {
+            position: relative;
+            z-index: 2;
+        }
+        
+        /* --- STYLE HARGA EFEK 3D BARU --- */
+        .harga {
+            display: block; 
+            font-size: 1.7rem; 
+            font-weight: 900;
+            margin: 15px 0 10px;
+            color: white; 
+            text-shadow: 
+                3px 3px 0 var(--color-sea), 
+                -1px -1px 0 #fff; 
+            letter-spacing: 1px;
+        }
+
+        /* --- OVERLAY & BACKGROUNDS (Seafood) --- */
+
+        #card1 { background-image: url("https://asset.kompas.com/crops/MS1Qf7mvKYfwJ9ZwS5sr2r23qsg=/0x0:1000x667/1200x800/data/photo/2023/06/29/649d11a1ade36.jpeg"); background-size: cover; }
+        #card2 { background-image: url("https://www.glorimelamine.com/wp-content/uploads/Resep-Masak-Shashimi-Sederhana-di-Rumah.jpg"); background-size: cover; }
+        #card3 { background-image: url("https://superapp.id/blog/wp-content/uploads/2020/12/4.-masfakta.blogspot.jpg"); background-size: cover; }
+
+        /* Overlay Gelap untuk Seafood */
+        #card1::before, #card2::before, #card3::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5); 
+            z-index: 1; 
+        }
+
+        /* --- OVERLAY & BACKGROUNDS (Minuman) --- */
+        #card4 { background-image: url("https://blog.exporthub.id/wp-content/uploads/2025/09/Minuman-Matcha.jpg"); background-size: cover; color: var(--color-dark); }
+        #card5 { background-image: url("https://theicedcoffee.com/wp-content/uploads/2025/06/p168-1-1024x819.webp"); background-size: cover; color: var(--color-dark); }
+        #card6 { background-image: url("https://sightglasscoffee.com/cdn/shop/articles/10302024-BRAND-New_Drink-Beverage-Blog.jpg?v=1730773650"); background-size: cover; color: var(--color-dark); }
+
+        /* Overlay Terang untuk Minuman */
+        #card4::before, #card5::before, #card6::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(255, 255, 255, 0.5); 
+            z-index: 1; 
+        }
+
+        /* Harga Minuman */
+        #minuman .harga {
+            color: var(--color-dark); 
+            text-shadow: 
+                3px 3px 0 var(--color-accent), 
+                -1px -1px 0 #fff; 
+        }
+        
+        /* --- Tombol Keranjang dan Tambah --- */
+        .menu-actions {
+            margin-top: 15px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .add-to-cart, .view-description {
+            width: 100%;
+            padding: 8px 15px;
+            border-radius: 3px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+            font-weight: bold;
+        }
+        .add-to-cart {
+            background-color: var(--color-sea);
+            color: white;
+            border: none;
+        }
+        .add-to-cart:hover {
+            background-color: #1a4157; 
+        }
+        .view-description {
+            background-color: var(--color-light);
+            color: var(--color-dark);
+            border: 1px solid var(--color-sea);
+        }
+        .view-description:hover {
+            background-color: #e0e0e0;
+        }
+
+
+        /* --- Keranjang (Cart) Style --- */
+        #cart-container {
+            position: fixed;
+            top: 0;
+            right: -350px; 
+            width: 330px;
+            height: 100%;
+            background-color: white;
+            box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
+            transition: right 0.3s ease;
+            z-index: 100;
+            padding: 20px;
+            text-align: left;
+            overflow-y: auto;
+        }
+
+        #cart-container.open {
+            right: 0; 
+        }
+
+        #cart-items {
+            list-style: none;
+            padding: 0;
+        }
+
+        #cart-items li {
+            border-bottom: 1px dashed #ddd;
+            padding: 10px 0;
+            font-size: 0.9em;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        #cart-button {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: var(--color-sea);
+            color: white;
+            border: none;
+            padding: 15px;
+            border-radius: 50%;
+            font-size: 1.2rem;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            z-index: 99;
+        }
+        
+        /* --- Modal (Pop-up Deskripsi & Checkout) Style --- */
+        #modal-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            display: none; /* Default tersembunyi */
+            justify-content: center;
+            align-items: center;
+            z-index: 200;
+        }
+
+        #modal-content {
+            background-color: var(--color-light);
+            color: var(--color-dark);
+            padding: 40px;
+            border-radius: 10px;
+            width: 90%;
+            max-width: 600px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            text-align: left;
+            position: relative;
+            transform: scale(0.9);
+            transition: transform 0.3s ease;
+        }
+
+        #modal-container.visible #modal-content {
+            transform: scale(1);
+        }
+
+        #modal-content h3 {
+            font-size: 2rem;
+            color: var(--color-sea);
+            border-bottom: 2px solid var(--color-accent);
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+
+        .close-button {
+            position: absolute;
+            top: 15px;
+            right: 25px;
+            font-size: 2rem;
+            font-weight: bold;
+            color: var(--color-sea);
+            cursor: pointer;
+            line-height: 1;
+        }
+    </style>
+</head>
+<body>
+    
+    <main id="main-content">
+        <header class="hero-section">
+            <div class="hero-background"></div>
+            
+            <div class="hero-content">
+                <h1>Sip & Sea 🌊</h1> 
+                <p>Rasa Autentik Lautan dan Kedamaian Cangkir Anda</p>
+                
+                <a href="#menu" class="cta-button">Jelajahi Menu</a>
+            </div>
+        </header>
+
+        <section id="seafood" class="container">
+            <h2>Dari Lautan Segar</h2>
+            
+            <div id="menu" class="menu-grid">
+                <div id="card1" class="menu-item" data-id="kepiting-mentega" data-name="Kepiting Saus Mentega" data-price="999999">
+                    <h3>Kepiting Saus Mentega Premium</h3>
+                    <p>Diolah dengan bumbu rahasia dan mentega Prancis.</p>
+                    <span class="harga">Rp999.999,00</span>
+                    <div class="menu-actions">
+                        <button class="view-description">Lihat Deskripsi Detail</button>
+                        <button class="add-to-cart">Tambah ke Keranjang</button>
+                    </div>
+                </div>
+                <div id="card2" class="menu-item" data-id="sashimi-mix" data-name="Sashimi Mix Platter" data-price="199999">
+                    <h3>Sashimi Mix Platter</h3>
+                    <p>Ikan pilihan, disajikan dengan wasabi dan shoyu terbaik.</p>
+                    <span class="harga">Rp199.999,00</span>
+                    <div class="menu-actions">
+                        <button class="view-description">Lihat Deskripsi Detail</button>
+                        <button class="add-to-cart">Tambah ke Keranjang</button>
+                    </div>
+                </div>
+                <div id="card3" class="menu-item" data-id="udang-bakar-madu" data-name="Udang Bakar Madu" data-price="599999">
+                    <h3>Udang Bakar Madu</h3>
+                    <p>Manis alami dari madu hutan yang meresap sempurna.</p>
+                    <span class="harga">Rp599.999,00</span>
+                    <div class="menu-actions">
+                        <button class="view-description">Lihat Deskripsi Detail</button>
+                        <button class="add-to-cart">Tambah ke Keranjang</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="minuman" class="container" style="background-color: #ededed;">
+            <h2>Kopi & Matcha, Keseimbangan Sempurna</h2>
+            
+            <div class="menu-grid">
+                <div id="card4" class="menu-item" data-id="kyoto-matcha" data-name="Kyoto Cold Brew Matcha" data-price="59999">
+                    <h3>Kyoto Cold Brew Matcha</h3>
+                    <p>Matcha otentik yang diseduh dingin selama 12 jam.</p>
+                    <span class="harga">Rp59.999,00</span>
+                    <div class="menu-actions">
+                        <button class="view-description">Lihat Deskripsi Detail</button>
+                        <button class="add-to-cart">Tambah ke Keranjang</button>
+                    </div>
+                </div>
+                <div id="card5" class="menu-item" data-id="caramel-macchiato" data-name="Salted Caramel Macchiato" data-price="99999">
+                    <h3>Salted Caramel Macchiato</h3>
+                    <p>Keseimbangan asin dan manis, dengan foam yang tebal.</p>
+                    <span class="harga">Rp99.999,00</span>
+                    <div class="menu-actions">
+                        <button class="view-description">Lihat Deskripsi Detail</button>
+                        <button class="add-to-cart">Tambah ke Keranjang</button>
+                    </div>
+                </div>
+                <div id="card6" class="menu-item" data-id="signature-espresso" data-name="Signature Espresso" data-price="49999">
+                    <h3>Signature Espresso</h3>
+                    <p>Blend eksklusif dari dataran tinggi Jawa Barat.</p>
+                    <span class="harga">Rp49.999,00</span>
+                    <div class="menu-actions">
+                        <button class="view-description">Lihat Deskripsi Detail</button>
+                        <button class="add-to-cart">Tambah ke Keranjang</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer style="background-color: var(--color-dark); color: var(--color-light); padding: 20px 0; text-align: center;">
+        <div class="container">
+            <p>&copy; 2025 Sip & Sea. Keindahan Rasa.</p>
+        </div>
+    </footer>
+
+    <button id="cart-button">🛒 <span id="cart-count">0</span></button>
+
+    <div id="cart-container">
+        <h3>Keranjang Belanja</h3>
+        <ul id="cart-items">
+            </ul>
+        <hr>
+        <p><strong>Total:</strong> <span id="cart-total">Rp0,00</span></p>
+        <button id="checkout-button" class="cta-button" style="width: 100%; margin-top: 15px;">
+            Selesaikan Pemesanan
+        </button>
+    </div>
+
+    <div id="modal-container">
+        <div id="modal-content">
+            <span class="close-button">&times;</span>
+            <h3 id="modal-title"></h3>
+            <p id="modal-description"></p>
+            <p style="margin-top: 20px;">*Asal Bahan:* <span id="modal-origin" style="font-weight: bold;"></span></p>
+        </div>
+    </div>
+
+    <script>
+        // --- DATA DESKRIPSI DETAIL ---
+        const menuDetails = {
+            "kepiting-mentega": {
+                title: "Kepiting Saus Mentega Premium",
+                description: "Kepiting bakau (Scylla serrata) pilihan, ditangkap dari perairan Sulawesi yang bersih, diolah dengan saus mentega Prancis pure butter yang diinfus dengan rempah rahasia Nusantara. Tekstur daging yang padat berpadu dengan keharuman mentega asin yang kaya.",
+                origin: "Kepiting dari Sulawesi, Mentega Prancis."
+            },
+            "sashimi-mix": {
+                title: "Sashimi Mix Platter",
+                description: "Kombinasi irisan tipis Ikan Tuna sirip kuning (Yellowfin Tuna) dan Salmon Atlantik grade A. Tuna bersumber dari perairan Maluku, dan Salmon kami impor dari Norwegia untuk memastikan kesegaran dan kandungan lemak Omega-3 tertinggi. Disajikan dingin dengan daikon, wasabi premium, dan Shoyu Koikuchi.",
+                origin: "Tuna (Maluku), Salmon (Norwegia)."
+            },
+            "udang-bakar-madu": {
+                title: "Udang Bakar Madu",
+                description: "Udang Windu (Penaeus monodon) berukuran jumbo, dibakar perlahan di atas arang batok kelapa. Bumbu marinasi terdiri dari madu hutan liar dari Sumbawa, kecap manis premium, dan sedikit rempah bakar bakar rahasia. Rasanya manis alami dengan aroma smokey yang memikat.",
+                origin: "Udang (Jawa Timur), Madu Hutan (Sumbawa)."
+            },
+            "kyoto-matcha": {
+                title: "Kyoto Cold Brew Matcha",
+                description: "Bubuk Matcha Grade Upacara dari Uji, Kyoto, Jepang. Disajikan menggunakan metode cold brew selama 12 jam, menghasilkan rasa umami yang mendalam tanpa rasa pahit yang berlebihan. Sangat halus dan menyegarkan. Sempurna untuk menyeimbangkan rasa seafood yang kaya.",
+                origin: "Matcha (Uji, Kyoto, Jepang)."
+            },
+            "caramel-macchiato": {
+                title: "Salted Caramel Macchiato",
+                description: "Espresso single origin Arabika Gayo dicampur dengan susu segar dan sirup karamel buatan tangan yang dimasak hingga menghasilkan rasa gosong yang pas. Ditambah taburan garam laut Bali yang halus untuk menciptakan keseimbangan rasa asin dan manis yang sempurna.",
+                origin: "Biji Kopi Arabika (Gayo, Aceh), Garam (Bali)."
+            },
+            "signature-espresso": {
+                title: "Signature Espresso",
+                description: "Blend eksklusif biji Arabika dari dataran tinggi Pangalengan, Jawa Barat, dengan sedikit robusta pilihan. Dipanggang (roast) pada tingkat medium-dark untuk menonjolkan body tebal, aroma cokelat, dan aftertaste kacang yang panjang. Pilihan terbaik untuk penikmat kopi sejati.",
+                origin: "Biji Kopi (Pangalengan, Jawa Barat)."
+            }
+        };
+
+        // --- ELEMEN DOM ---
+        const cartItemsList = document.getElementById('cart-items');
+        const cartTotalSpan = document.getElementById('cart-total');
+        const cartCountSpan = document.getElementById('cart-count');
+        const cartContainer = document.getElementById('cart-container');
+        const cartButton = document.getElementById('cart-button');
+        const modalContainer = document.getElementById('modal-container');
+        const modalTitle = document.getElementById('modal-title');
+        const modalDescription = document.getElementById('modal-description');
+        const modalOrigin = document.getElementById('modal-origin');
+        const closeButton = document.querySelector('.close-button');
+        const checkoutButton = document.getElementById('checkout-button'); // Tombol Checkout
+
+        let cart = [];
+
+        // --- FUNGSI UMUM ---
+        const formatRupiah = (number) => {
+            return new Intl.NumberFormat('id-ID', {
+                style: 'currency',
+                currency: 'IDR',
+                minimumFractionDigits: 0
+            }).format(number);
+        };
+
+        const closeModal = () => {
+            modalContainer.classList.remove('visible');
+            setTimeout(() => {
+                modalContainer.style.display = 'none';
+            }, 300);
+        }
+
+        const updateCartDisplay = () => {
+            cartItemsList.innerHTML = '';
+            let total = 0;
+            let count = 0;
+
+            cart.forEach((item, index) => {
+                const li = document.createElement('li');
+                li.innerHTML = `
+                    <div>
+                        ${item.name} (${item.quantity}x)
+                    </div>
+                    <div>
+                        ${formatRupiah(item.price * item.quantity)}
+                        <button class="remove-item" data-index="${index}" style="margin-left: 10px; background: #e74c3c; color: white; border: none; padding: 3px 8px; cursor: pointer; border-radius: 3px;">Hapus</button>
+                    </div>
+                `;
+                cartItemsList.appendChild(li);
+                total += item.price * item.quantity;
+                count += item.quantity;
+            });
+
+            cartTotalSpan.textContent = formatRupiah(total);
+            cartCountSpan.textContent = count;
+            
+            document.querySelectorAll('.remove-item').forEach(button => {
+                button.addEventListener('click', (e) => {
+                    removeItem(e.target.dataset.index);
+                });
+            });
+        };
+
+        const addItemToCart = (name, price) => {
+            const existingItem = cart.find(item => item.name === name);
+
+            if (existingItem) {
+                existingItem.quantity += 1;
+            } else {
+                cart.push({ name, price, quantity: 1 });
+            }
+            updateCartDisplay();
+        };
+
+        const removeItem = (index) => {
+            cart.splice(index, 1);
+            updateCartDisplay();
+        };
+
+        const showModal = (title, description, origin = '') => {
+            modalTitle.textContent = title;
+            modalDescription.innerHTML = description;
+
+            if (origin) {
+                document.querySelector('#modal-content > p:last-child').style.display = 'block';
+                modalOrigin.textContent = origin;
+            } else {
+                document.querySelector('#modal-content > p:last-child').style.display = 'none';
+            }
+
+            modalContainer.style.display = 'flex';
+            setTimeout(() => {
+                modalContainer.classList.add('visible');
+            }, 10);
+        }
+
+        document.querySelectorAll('.add-to-cart').forEach(button => {
+            button.addEventListener('click', (e) => {
+                const itemElement = e.target.closest('.menu-item');
+                const name = itemElement.dataset.name;
+                const price = parseInt(itemElement.dataset.price); 
+                addItemToCart(name, price);
+            });
+        });
+
+        cartButton.addEventListener('click', () => {
+            cartContainer.classList.toggle('open');
+        });
+
+        document.querySelectorAll('.view-description').forEach(button => {
+            button.addEventListener('click', (e) => {
+                const itemElement = e.target.closest('.menu-item');
+                const itemId = itemElement.dataset.id;
+                const detail = menuDetails[itemId];
+                
+                if (detail) {
+                    showModal(detail.title, detail.description, detail.origin);
+                }
+            });
+        });
+
+        checkoutButton.addEventListener('click', () => {
+            if (cart.length === 0) {
+                showModal(
+                    "Keranjang Kosong 🛒",
+                    "Oops! Anda belum memilih menu apa pun. Silakan jelajahi menu kami terlebih dahulu."
+                );
+                return;
+            }
+
+            showModal(
+                "Pesanan Diproses! 🎉",
+                "*Terima kasih telah memilih Sip & Sea.*<br><br>Pesanan Anda telah diterima dan sedang disiapkan oleh chef kami dengan standar estetika tertinggi. Harap tunggu sebentar, kenikmatan lautan akan segera hadir di meja Anda."
+            );
+
+            cart = [];
+            updateCartDisplay();
+        });
+
+        closeButton.addEventListener('click', closeModal);
+        modalContainer.addEventListener('click', (e) => {
+            if (e.target.id === 'modal-container') {
+                closeModal();
+            }
+        });
+        
+    </script>
+</body>
+</html>
